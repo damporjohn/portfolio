@@ -862,9 +862,14 @@ If asked something unknown, respond briefly and honestly.`;
                     })
                     .catch(err => {
                         typingBubble.remove();
+                        const metaUrl = (document.querySelector('meta[name=\"backend-url\"]')?.content || '').trim();
+                        const isLocal = ['localhost','127.0.0.1','::1','::'].includes(location.hostname);
                         if (err.message === 'NO_ENDPOINT') {
-                            addMessage('Set API_URL in the script to your deployed backend endpoint.', 'bot');
-                            if (hint) hint.textContent = 'Update REMOTE_API_URL in the script.';
+                            addMessage('Set a backend endpoint for chat.', 'bot');
+                            if (hint) hint.textContent = 'Provide meta[name=\"backend-url\"] or deploy same-origin /api/chat.';
+                        } else if (!isLocal && !metaUrl) {
+                            addMessage('Backend not reachable. Set meta[name=\"backend-url\"] to your deployed API.', 'bot');
+                            if (hint) hint.textContent = 'Example: https://your-backend.example.com/api/chat';
                         } else {
                             addMessage('I hit an error reaching the backend. Please check the server and try again.', 'bot');
                         }
