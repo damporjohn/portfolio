@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Vincent Dampor | Portfolio</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #020617 100%);
+            color: #e5e7eb;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            padding: 120px 20px 40px;
+        }
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+
+        .hero-left p {
+            margin-top: 14px;
+            font-size: 1.05rem;
+            color: #cbd5f5;
+        }
+
+        .hero-tags {
+            margin-top: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: #e5e7eb;
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .hero-actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: #0b1220;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.45);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 40px rgba(56, 189, 248, 0.6);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #e5e7eb;
+            border-color: rgba(148, 163, 184, 0.6);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(15, 23, 42, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .hero-right {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-avatar {
+            width: 210px;
+            height: 210px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 22px 40px rgba(15, 23, 42, 0.9);
+            background: radial-gradient(circle at top, #1f2937, #020617);
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-left {
+                order: 2;
+            }
+
+            .hero-right {
+                order: 1;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(2, 6, 23, 0.96);
+            backdrop-filter: blur(12px);
+            padding: 10px 20px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            transition: width 0.18s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #e5e7eb;
+        }
+
+        .section-highlight {
+            outline: 2px solid rgba(56, 189, 248, 0.8);
+            box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.12), 0 12px 32px rgba(8, 47, 73, 0.45);
+            transition: outline 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .fade-section {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .fade-section.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-card {
+            opacity: 0;
+            transform: translateY(18px) scale(0.98);
+            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .fade-card.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .skill-box:hover,
+        .project-card:hover {
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow: 0 18px 40px rgba(8, 47, 73, 0.9);
+            transform: translateY(-4px);
+        }
+
+        .about p {
+            max-width: 800px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-box {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.7);
+            color: #e5e7eb;
+            backdrop-filter: blur(8px);
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.85);
+            color: #e5e7eb;
+            backdrop-filter: blur(8px);
+        }
+
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #020617;
+        }
+
+        footer {
+            background: #020617;
+            color: #9ca3af;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        /* Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chatbot-launcher {
+            background: #0f172a;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .chatbot-launcher:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .chatbot-window {
+            width: 320px;
+            max-height: 520px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #fff;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .chatbot-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chatbot-icon-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-icon-btn:hover {
+            opacity: 0.8;
+        }
+
+        .chatbot-messages {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            height: 320px;
+            background: #f8fafc;
+        }
+
+        .chatbot-message {
+            max-width: 80%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .chatbot-message.user {
+            align-self: flex-end;
+            background: #0f172a;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chatbot-message.bot {
+            align-self: flex-start;
+            background: #e2e8f0;
+            color: #111827;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            gap: 8px;
+            padding: 12px 14px;
+            border-top: 1px solid #e2e8f0;
+            background: #fff;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            font-size: 0.95rem;
+            transition: border 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #0f172a;
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.15);
+        }
+
+        .chatbot-input button {
+            background: #0f172a;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .chatbot-input button:hover {
+            background: #1e293b;
+        }
+
+        .chatbot-hint {
+            font-size: 0.75rem;
+            color: #475569;
+            padding: 0 14px 10px 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <header>
+        <div class="hero">
+            <div class="hero-left">
+                <h1>John Vincent S. Dampor</h1>
+                <p>Computer Science Student crafting modern web & system solutions with a touch of AI.</p>
+                <div class="hero-tags">
+                    <span class="tag">Full‑stack basics</span>
+                    <span class="tag">Flask · Node.js · TypeScript</span>
+                    <span class="tag">MySQL · SQLite</span>
+                    <span class="tag">AI & Chatbots</span>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+                        View Projects
+                    </button>
+                    <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                        Contact Me
+                    </button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-avatar">
+                    <img src="pictures/ID.png" alt="Portrait of John Vincent Dampor">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAV -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ABOUT -->
+    <section id="about" class="about fade-section">
+        <h2>About Me</h2>
+        <p>
+            I am a Computer Science student with experience in building web-based systems using
+            Flask, Node.js, and MySQL. I enjoy developing functional applications such as
+            management systems, AI-powered platforms, and service-based applications.
+        </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="fade-section">
+        <h2>Skills</h2>
+        <div class="skills">
+            <div class="skill-box fade-card">HTML, CSS, JavaScript</div>
+            <div class="skill-box fade-card">Python (Flask)</div>
+            <div class="skill-box fade-card">Node.js & TypeScript</div>
+            <div class="skill-box fade-card">MySQL & SQLite</div>
+            <div class="skill-box fade-card">UI/UX (Figma)</div>
+            <div class="skill-box fade-card">AI & Chatbot Integration</div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="fade-section">
+        <h2>Projects</h2>
+        <div class="projects">
+
+            <div class="project-card fade-card">
+                <h3>IntervUAI</h3>
+                <p>
+                    An AI-powered interview preparation platform with real-time feedback
+                    and structured interview sessions.
+                </p>
+            </div>
+
+            <div class="project-card fade-card">
+                <h3>FurHub</h3>
+                <p>
+                    An online platform for booking pet grooming services connecting
+                    pet owners and groomers.
+                </p>
+            </div>
+
+            <div class="project-card fade-card">
+                <h3>Clinic Management System</h3>
+                <p>
+                    A Flask-based system managing patients, doctors, appointments,
+                    and medical records.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="fade-section">
+        <h2>Contact</h2>
+        <p>Email: damporjohn233@gmail.com</p>
+        <p>GitHub: <a href="https://github.com/damporjohn" target="_blank">github.com/damporjohn</a></p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 John Vincent Dampor. All rights reserved.</p>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot" aria-live="polite">
+        <button class="chatbot-launcher" id="chatbotToggle" aria-expanded="false">
+            💬 Chat with me
+        </button>
+
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h4>Assistant</h4>
+                <div class="chatbot-actions">
+                    <button class="chatbot-icon-btn" id="chatbotClose" aria-label="Close chat">×</button>
+                </div>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages"></div>
+            <div class="chatbot-hint" id="chatbotHint">Ask anything about my skills or projects.</div>
+            <form class="chatbot-input" id="chatbotForm">
+                <input type="text" id="chatbotInput" placeholder="Ask me anything..." autocomplete="off" aria-label="Chat input">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (() => {
+            const toggleBtn = document.getElementById('chatbotToggle');
+            const windowEl = document.getElementById('chatbotWindow');
+            const closeBtn = document.getElementById('chatbotClose');
+            const form = document.getElementById('chatbotForm');
+            const input = document.getElementById('chatbotInput');
+            const messages = document.getElementById('chatbotMessages');
+            const hint = document.getElementById('chatbotHint');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            const revealEls = document.querySelectorAll('.fade-section, .fade-card');
+
+            const botName = 'Assistant';
+            // Flowise Cloud config (mirrors your .env values)
+            const FLOWISE_BASE_URL = 'https://cloud.flowiseai.com';
+            const FLOWISE_CHATFLOW_ID = '638dce4b-9a36-4631-963b-60af72f2ef80';
+            const FLOWISE_API_URL = `${FLOWISE_BASE_URL}/api/v1/prediction/${FLOWISE_CHATFLOW_ID}`;
+            const FLOWISE_API_KEY = 'dLbZbSGqcsZRWa6cZmU4b9ksnUEXBxc7Wwv9DEPPbq0';
+            const systemPrompt = `
+You are an AI portfolio assistant for John Vincent Dampor.
+Be concise and friendly. You can answer about his skills (HTML, CSS, JS, Python/Flask, Node.js/TS, MySQL/SQLite, AI/chatbots), and projects (IntervUAI interview prep, FurHub pet grooming booking, Clinic Management System for patients/doctors/appointments/records). If asked to contact, give email damporjohn233@gmail.com.
+If asked something unknown, respond briefly and honestly.`;
+
+            const history = [{ role: 'system', content: systemPrompt.trim() }];
+            let isSending = false;
+
+            const addMessage = (text, sender = 'bot') => {
+                const bubble = document.createElement('div');
+                bubble.className = `chatbot-message ${sender}`;
+                bubble.textContent = text;
+                messages.appendChild(bubble);
+                messages.scrollTop = messages.scrollHeight;
+            };
+
+            const addTyping = () => {
+                addMessage('Typing...', 'bot');
+                return messages.lastElementChild;
+            };
+
+            const sendToFlowise = async (userText) => {
+                if (!FLOWISE_API_URL.includes('http')) {
+                    throw new Error('NO_ENDPOINT');
+                }
+                history.push({ role: 'user', content: userText });
+                const context = history.slice(-12);
+                const body = {
+                    question: userText,
+                    history: context.map(c => [c.role, c.content]),
+                };
+                const headers = { 'Content-Type': 'application/json' };
+                if (FLOWISE_API_KEY) headers.Authorization = `Bearer ${FLOWISE_API_KEY}`;
+
+                const res = await fetch(FLOWISE_API_URL, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify(body),
+                });
+                if (!res.ok) {
+                    const txt = await res.text();
+                    throw new Error(txt || 'Flowise request failed');
+                }
+                const data = await res.json();
+                const text = data?.text || data?.answer || data?.message || "Sorry, I didn't get that.";
+                history.push({ role: 'assistant', content: text });
+                return text;
+            };
+
+            const openChat = () => {
+                windowEl.style.display = 'flex';
+                toggleBtn.setAttribute('aria-expanded', 'true');
+                input.focus();
+                if (!messages.childElementCount) {
+                    addMessage(`Hi, I'm ${botName}. Ask me about projects, skills, or how to contact John.`);
+                }
+            };
+
+            const closeChat = () => {
+                windowEl.style.display = 'none';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            };
+
+            const highlightSection = (el) => {
+                if (!el) return;
+                el.classList.add('section-highlight');
+                setTimeout(() => el.classList.remove('section-highlight'), 1200);
+            };
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.18 }
+            );
+
+            revealEls.forEach(el => observer.observe(el));
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('href').replace('#', '');
+                    const target = document.getElementById(targetId);
+                    if (!target) return;
+
+                    e.preventDefault();
+
+                    const navHeight = document.querySelector('nav')?.offsetHeight || 70;
+                    const rect = target.getBoundingClientRect();
+                    const targetY = rect.top + window.scrollY - navHeight - 12; // small extra gap
+
+                    window.scrollTo({
+                        top: targetY,
+                        behavior: 'smooth'
+                    });
+
+                    highlightSection(target);
+                });
+            });
+
+            toggleBtn.addEventListener('click', () => {
+                if (windowEl.style.display === 'flex') {
+                    closeChat();
+                } else {
+                    openChat();
+                }
+            });
+
+            closeBtn.addEventListener('click', closeChat);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (isSending) return;
+                const value = input.value.trim();
+                if (!value) return;
+                addMessage(value, 'user');
+                input.value = '';
+                isSending = true;
+                const typingBubble = addTyping();
+
+                sendToFlowise(value)
+                    .then(reply => {
+                        typingBubble.remove();
+                        addMessage(reply, 'bot');
+                    })
+                    .catch(err => {
+                        typingBubble.remove();
+                        if (err.message === 'NO_ENDPOINT') {
+                            addMessage('Set FLOWISE_API_URL in the script to your deployed Flowise endpoint.', 'bot');
+                            hint.textContent = 'Update FLOWISE_API_URL in the script.';
+                        } else {
+                            addMessage('I hit an error reaching Flowise. Please check the endpoint and try again.', 'bot');
+                        }
+                        console.error(err);
+                    })
+                    .finally(() => {
+                        isSending = false;
+                    });
+            });
+        })();
+    </script>
+</body>
+</html>
