@@ -7,6 +7,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="pictures/ID.png">
 
     <style>
         * {
@@ -725,11 +726,12 @@
             const revealEls = document.querySelectorAll('.fade-section, .fade-card');
 
             const botName = 'Assistant';
-            // Flowise Cloud config (mirrors your .env values)
-            const FLOWISE_BASE_URL = 'https://cloud.flowiseai.com';
-            const FLOWISE_CHATFLOW_ID = '638dce4b-9a36-4631-963b-60af72f2ef80';
-            const FLOWISE_API_URL = `${FLOWISE_BASE_URL}/api/v1/prediction/${FLOWISE_CHATFLOW_ID}`;
-            const FLOWISE_API_KEY = 'dLbZbSGqcsZRWa6cZmU4b9ksnUEXBxc7Wwv9DEPPbq0';
+            // Backend API (Node/Express) that talks to Flowise using secret keys on the server.
+            // For local dev, use http://localhost:3001. For production, replace with your deployed backend URL.
+            const LOCAL_API_URL = 'http://localhost:3001/api/chat';
+            const REMOTE_API_URL = 'https://your-backend-domain.com/api/chat'; // TODO: replace when deployed
+            const isLocalHost = ['localhost', '127.0.0.1', '::1', '::'].includes(location.hostname);
+            const API_URL = isLocalHost ? LOCAL_API_URL : REMOTE_API_URL;
             const systemPrompt = `
 You are an AI portfolio assistant for John Vincent Dampor.
 Be concise and friendly. You can answer about his skills (HTML, CSS, JS, Python/Flask, Node.js/TS, MySQL/SQLite, AI/chatbots), and projects (IntervUAI interview prep, FurHub pet grooming booking, Clinic Management System for patients/doctors/appointments/records). If asked to contact, give email damporjohn233@gmail.com.
@@ -751,30 +753,27 @@ If asked something unknown, respond briefly and honestly.`;
                 return messages.lastElementChild;
             };
 
-            const sendToFlowise = async (userText) => {
-                if (!FLOWISE_API_URL.includes('http')) {
+            const sendToBackend = async (userText) => {
+                if (!API_URL.includes('http')) {
                     throw new Error('NO_ENDPOINT');
                 }
                 history.push({ role: 'user', content: userText });
                 const context = history.slice(-12);
                 const body = {
-                    question: userText,
+                    message: userText,
                     history: context.map(c => [c.role, c.content]),
                 };
-                const headers = { 'Content-Type': 'application/json' };
-                if (FLOWISE_API_KEY) headers.Authorization = `Bearer ${FLOWISE_API_KEY}`;
-
-                const res = await fetch(FLOWISE_API_URL, {
+                const res = await fetch(API_URL, {
                     method: 'POST',
-                    headers,
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
                 });
                 if (!res.ok) {
                     const txt = await res.text();
-                    throw new Error(txt || 'Flowise request failed');
+                    throw new Error(txt || 'Backend request failed');
                 }
                 const data = await res.json();
-                const text = data?.text || data?.answer || data?.message || "Sorry, I didn't get that.";
+                const text = data?.reply || data?.text || data?.answer || data?.message || "Sorry, I didn't get that.";
                 history.push({ role: 'assistant', content: text });
                 return text;
             };
@@ -854,7 +853,7 @@ If asked something unknown, respond briefly and honestly.`;
                 isSending = true;
                 const typingBubble = addTyping();
 
-                sendToFlowise(value)
+                sendToBackend(value)
                     .then(reply => {
                         typingBubble.remove();
                         addMessage(reply, 'bot');
@@ -862,10 +861,10 @@ If asked something unknown, respond briefly and honestly.`;
                     .catch(err => {
                         typingBubble.remove();
                         if (err.message === 'NO_ENDPOINT') {
-                            addMessage('Set FLOWISE_API_URL in the script to your deployed Flowise endpoint.', 'bot');
-                            hint.textContent = 'Update FLOWISE_API_URL in the script.';
+                            addMessage('Set API_URL in the script to your deployed backend endpoint.', 'bot');
+                            if (hint) hint.textContent = 'Update REMOTE_API_URL in the script.';
                         } else {
-                            addMessage('I hit an error reaching Flowise. Please check the endpoint and try again.', 'bot');
+                            addMessage('I hit an error reaching the backend. Please check the server and try again.', 'bot');
                         }
                         console.error(err);
                     })
