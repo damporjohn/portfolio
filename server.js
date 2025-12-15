@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
@@ -10,6 +12,9 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const buildFlowiseUrl = () => {
   const direct = (process.env.FLOWISE_API_URL || '').replace(/\/$/, '');
@@ -89,8 +94,9 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+app.use(express.static(__dirname));
 app.get('/', (_req, res) => {
-  res.send('Chatbot portfolio backend is running.');
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
