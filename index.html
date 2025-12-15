@@ -8,6 +8,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="pictures/ID.png">
+    <meta name="backend-url" content="">
 
     <style>
         * {
@@ -729,7 +730,8 @@
             // Backend API (Node/Express) that talks to Flowise using secret keys on the server.
             // For local dev, use http://localhost:3001. For production, replace with your deployed backend URL.
             const LOCAL_API_URL = 'http://localhost:3001/api/chat';
-            const REMOTE_API_URL = 'https://your-backend-domain.com/api/chat'; // TODO: replace when deployed
+            const META_BACKEND = (document.querySelector('meta[name="backend-url"]')?.content || '').trim();
+            const REMOTE_API_URL = META_BACKEND || '/api/chat';
             const isLocalHost = ['localhost', '127.0.0.1', '::1', '::'].includes(location.hostname);
             const API_URL = isLocalHost ? LOCAL_API_URL : REMOTE_API_URL;
             const systemPrompt = `
