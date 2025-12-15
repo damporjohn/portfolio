@@ -24,15 +24,44 @@
         }
 
         header {
+            position: relative;
             padding: 120px 20px 40px;
+            overflow: hidden;
         }
         .hero {
+            position: relative;
             max-width: 1000px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
             gap: 40px;
             align-items: center;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(60px);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.75), transparent 70%);
+            top: -40px;
+            left: -80px;
+        }
+
+        .hero::after {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle at center, rgba(168, 85, 247, 0.75), transparent 70%);
+            bottom: -80px;
+            right: -60px;
         }
 
         .hero-left h1 {
@@ -238,6 +267,65 @@
             border-color: rgba(56, 189, 248, 0.7);
             box-shadow: 0 18px 40px rgba(8, 47, 73, 0.9);
             transform: translateY(-4px);
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 10px;
+            padding-left: 26px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(56, 189, 248, 0.2), rgba(148, 163, 184, 0.2));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.8);
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            border-radius: 999px;
+            left: -17px;
+            top: 20px;
+            background: linear-gradient(135deg, #38bdf8, #a855f7);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        .timeline-meta {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .timeline-body {
+            font-size: 0.86rem;
+            color: #cbd5f5;
+            margin-top: 4px;
         }
 
         .about p {
@@ -476,6 +564,7 @@
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -486,22 +575,74 @@
     <section id="about" class="about fade-section">
         <h2>About Me</h2>
         <p>
-            I am a Computer Science student with experience in building web-based systems using
-            Flask, Node.js, and MySQL. I enjoy developing functional applications such as
-            management systems, AI-powered platforms, and service-based applications.
+            I am a Computer Science student who enjoys turning ideas into working software — from interview prep tools to clinic
+            systems and service platforms. I focus on building clean, understandable code with just enough polish on the UI to make
+            things feel delightful.
         </p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="fade-section">
+        <h2>Experience & Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item fade-card">
+                <div class="timeline-dot"></div>
+                <div class="timeline-meta">2024 – Present · BS Computer Science</div>
+                <div class="timeline-title">Foundation in software & AI</div>
+                <div class="timeline-body">
+                    Coursework in data structures, web development, software engineering, and AI — applying them directly in
+                    hands‑on projects instead of just theory.
+                </div>
+            </div>
+            <div class="timeline-item fade-card">
+                <div class="timeline-dot"></div>
+                <div class="timeline-meta">2024 · IntervUAI</div>
+                <div class="timeline-title">AI‑powered interview coach</div>
+                <div class="timeline-body">
+                    Built an AI interviewer that simulates real sessions and gives feedback on answers, helping students practice
+                    confidently before real interviews.
+                </div>
+            </div>
+            <div class="timeline-item fade-card">
+                <div class="timeline-dot"></div>
+                <div class="timeline-meta">2023 · FurHub & Clinic Management System</div>
+                <div class="timeline-title">Practical systems for real workflows</div>
+                <div class="timeline-body">
+                    Designed and implemented systems for bookings and medical records using Flask, Node.js, and SQL — focusing on
+                    simple flows that real users could understand immediately.
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" class="fade-section">
         <h2>Skills</h2>
         <div class="skills">
-            <div class="skill-box fade-card">HTML, CSS, JavaScript</div>
-            <div class="skill-box fade-card">Python (Flask)</div>
-            <div class="skill-box fade-card">Node.js & TypeScript</div>
-            <div class="skill-box fade-card">MySQL & SQLite</div>
-            <div class="skill-box fade-card">UI/UX (Figma)</div>
-            <div class="skill-box fade-card">AI & Chatbot Integration</div>
+            <div class="skill-box fade-card">
+                <strong>Frontend</strong>
+                <p>HTML, CSS, JavaScript</p>
+            </div>
+            <div class="skill-box fade-card">
+                <strong>Backend</strong>
+                <p>Python (Flask), Node.js, TypeScript</p>
+            </div>
+            <div class="skill-box fade-card">
+                <strong>Databases</strong>
+                <p>MySQL, SQLite</p>
+            </div>
+            <div class="skill-box fade-card">
+                <strong>Design & UX</strong>
+                <p>UI layouts, prototyping with Figma</p>
+            </div>
+            <div class="skill-box fade-card">
+                <strong>AI & Chatbots</strong>
+                <p>Prompting, Flowise, LLM integrations</p>
+            </div>
+            <div class="skill-box fade-card">
+                <strong>Currently exploring</strong>
+                <p>Next.js, Docker, better deployment workflows</p>
+            </div>
         </div>
     </section>
 
